@@ -20,6 +20,9 @@ async def get(id: int):
     query = movies.select().where(id == movies.c.id)
     return await database.fetch_one(query=query)
 
+async def get_release_year(release_year: str):
+    query = movies.select().where(release_year == movies.c.release_year)
+    return await database.fetch_all(query=query)
 
 async def get_all():
     query = movies.select()

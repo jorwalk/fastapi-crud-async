@@ -33,6 +33,15 @@ async def read_movie(id: int = Path(..., gt=0), ):
     return movie
 
 
+@router.get("/release_year/{year}/", response_model=List[MovieDB])
+async def read_movie_release_year(year: str = Path(...), ):
+    print(type(year))
+    movie = await crud_movies.get_release_year(year)
+    if not movie:
+        raise HTTPException(status_code=404, detail="Movie not found")
+    return movie
+
+
 @router.get("/", response_model=List[MovieDB])
 async def read_all_movies():
     return await crud_movies.get_all()
